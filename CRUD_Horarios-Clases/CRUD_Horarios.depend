@@ -1,0 +1,59 @@
+# depslib dependency file v1.0
+1714875343 source:Vespertino.cpp
+	<iostream>
+	<fstream>
+	"Horarios.h"
+
+1714874579 include\Horarios.h
+	<iostream>
+
+1714874579 include\Sedes.h
+	<iostream>
+
+1714875444 source:src\Horarios.cpp
+	"Horarios.h"
+	<iostream>
+	<fstream>
+	<stdlib.h>
+	<cstdlib>
+	<conio.h>
+	<iomanip>
+
+1714875456 source:src\Sedes.cpp
+	"Sedes.h"
+	<iostream>
+	<fstream>
+	<stdlib.h>
+	<cstdlib>
+	<conio.h>
+	<iomanip>
+
+1714875651 source:Vespertino.cpp
+	<iostream>
+	<fstream>
+	"Horarios.h"
+
+1715136505 include\Sedes.h
+	<iostream>
+
+1714874579 include\Horarios.h
+	<iostream>
+
+1714875444 source:src\Horarios.cpp
+	"Horarios.h"
+	<iostream>
+	<fstream>
+	<stdlib.h>
+	<cstdlib>
+	<conio.h>
+	<iomanip>
+
+1715137241 source:src\Sedes.cpp
+	"Sedes.h"
+	<iostream>
+	<fstream>
+	<stdlib.h>
+	<cstdlib>
+	<iomanip>
+	<sstream>
+	<cstring>
