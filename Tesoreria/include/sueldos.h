@@ -1,23 +1,16 @@
 #ifndef SUELDOS_H
 #define SUELDOS_H
-#include <iostream>
-#include <string>
 
-using namespace std;
 
 class sueldos
 {
-    private:
-
     public:
+        sueldos();
+        virtual ~sueldos();
 
-        void menu();
-        void agregarEmpleado();
-        void verEmpleado();
-        void calcularSueldo();
-        void generarNomina();
-        void gestionarBonificaciones();
-        void procesoAsignacionMaestros();
+    protected:
+
+    private:
 };
 
 #endif // SUELDOS_H

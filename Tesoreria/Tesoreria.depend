@@ -11,19 +11,20 @@
 1714108362 c:\users\admi\onedrive\documentos\carpeta para git\didactica2k24\proyectos\menu tesoreria\tesoreria\include\colegiatura.h
 	<iostream>
 
-1714199614 source:c:\users\admi\onedrive\documentos\carpeta para git\didactica2k24\proyectos\menu tesoreria\tesoreria\main.cpp
+1715561511 source:c:\users\admi\onedrive\documentos\carpeta para git\didactica2k24\proyectos\menu tesoreria\tesoreria\main.cpp
 	<iostream>
 	<fstream>
 	"colegiatura.h"
 	"matricula.h"
 	"sueldos.h"
+	"alumnos.h"
 	<iostream>
 	"menuTesoreria.h"
 
-1715307199 c:\users\admi\onedrive\documentos\carpeta para git\didactica2k24\proyectos\menu tesoreria\tesoreria\include\matricula.h
+1715577112 c:\users\admi\onedrive\documentos\carpeta para git\didactica2k24\proyectos\menu tesoreria\tesoreria\include\matricula.h
 	<iostream>
 
-1715305157 source:c:\users\admi\onedrive\documentos\carpeta para git\didactica2k24\proyectos\menu tesoreria\tesoreria\src\matricula.cpp
+1715577014 source:c:\users\admi\onedrive\documentos\carpeta para git\didactica2k24\proyectos\menu tesoreria\tesoreria\src\matricula.cpp
 	"matricula.h"
 	<iostream>
 	<fstream>
@@ -32,6 +33,7 @@
 	<iomanip>
 	<cstdlib>
 	<ctime>
+	"alumnos.h"
 
 1714199489 c:\users\admi\onedrive\documentos\carpeta para git\didactica2k24\proyectos\menu tesoreria\tesoreria\include\menutesoreria.h
 	<iostream>
@@ -43,4 +45,22 @@
 	"colegiatura.h"
 	"matricula.h"
 	"sueldos.h"
+
+1715561136 source:c:\users\admi\onedrive\documentos\carpeta para git\didactica2k24\proyectos\menu tesoreria\tesoreria\src\alumnos.cpp
+	<iostream>
+	<fstream>
+	<stdlib.h>
+	<cstdlib>
+	<conio.h>
+	<iomanip>
+	<string>
+	"alumnos.h"
+
+1715561136 c:\users\admi\onedrive\documentos\carpeta para git\didactica2k24\proyectos\menu tesoreria\tesoreria\include\alumnos.h
+	<iostream>
+	<fstream>
+	<stdlib.h>
+	<cstdlib>
+	<conio.h>
+	<iomanip>
 

@@ -1,10 +1,11 @@
-/*
+
 #include <iostream>
 #include<fstream>
 
 #include "colegiatura.h"
 #include "matricula.h"
 #include "sueldos.h"
+#include "alumnos.h"
 using namespace std;
 void menuGeneral();
 
@@ -27,7 +28,7 @@ void menuGeneral(){
 	cout<<"\t\t\t|    SISTEMA DE TESORERIA     |"<<endl;
 	cout<<"\t\t\t-------------------------------"<<endl;
 	cout<<"\t\t\t 1. Matricula"<<endl;
-	cout<<"\t\t\t 2. Colegiatura"<<endl;
+	cout<<"\t\t\t 2. Alumnos"<<endl;
 	cout<<"\t\t\t 3. Pago de sueldos"<<endl;
 	cout<<"\t\t\t 4. Salir del Sistema"<<endl;
 		cout<<"\t\t\t-------------------------------"<<endl;
@@ -45,7 +46,10 @@ void menuGeneral(){
         }
 		break;
 	case 2:
-		//display();
+	    {
+	        alumnos alumno;
+	        alumno.menu();
+	    }
 		break;
 	case 3:
 		//modify();
@@ -60,7 +64,8 @@ void menuGeneral(){
 	}
     }while(choice!= 4);
 }
-*/
+
+/*
 #include <iostream>
 #include "menuTesoreria.h"
 using namespace std;
@@ -72,3 +77,4 @@ int main()
     return 0;
 
 }
+*/

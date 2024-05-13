@@ -34,11 +34,13 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="include/alumnos.h" />
 		<Unit filename="include/colegiatura.h" />
 		<Unit filename="include/matricula.h" />
 		<Unit filename="include/menuTesoreria.h" />
 		<Unit filename="include/sueldos.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/alumnos.cpp" />
 		<Unit filename="src/colegiatura.cpp" />
 		<Unit filename="src/matricula.cpp" />
 		<Unit filename="src/menuTesoreria.cpp" />

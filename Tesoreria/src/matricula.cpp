@@ -7,7 +7,16 @@
 #include<iomanip>
 #include <cstdlib> // Para la generación de números aleatorios
 #include <ctime>   // Para establecer la semilla del generador de números aleatorios
+#include "alumnos.h"
 using namespace std;
+
+// Definición de la estructura Sede que contiene los datos de una sede
+struct Matricula {
+    char carnet [20];
+    char facultad [20];
+    //char nombre[50];
+    //char telefono[20];
+};
 void matricula::menu(){
 int choice;
 
@@ -18,28 +27,51 @@ int choice;
 	cout<<"\t\t\t---------------------------------------"<<endl;
 	cout<<"\t\t\t|SISTEMA DE PAGO DE MATRICULA EN LINEA|"<<endl;
 	cout<<"\t\t\t---------------------------------------"<<endl;
-	cout<<"\t\t\t  1. Pago de matricula"<<endl;
-	cout<<"\t\t\t  2. Salir"<<endl;
-	cout<<"\t\t\t---------------------------------------"<<endl;
-	cout<<"\t\t\t  Opcion a escoger:[1/2]"<<endl;
-	cout<<"\t\t\t---------------------------------------"<<endl;
-    cout<<"\t\t\t  Ingresa tu Opcion: ";
-    cin>>choice;
+	cout<<"\t\t\t 1. Ingreso Matricula"<<endl;
+	cout<<"\t\t\t 2. Despliegue Matricula"<<endl;
+    cout<<"\t\t\t 3. Modifica Matricula"<<endl;
+    cout<<"\t\t\t 4. Borra Matricula"<<endl;
+    cout<<"\t\t\t 5. Retornar menu anterior"<<endl;
+    cout<<"\t\t\t-----------------------------------------"<<endl;
+    cout<<"\t\t\tOpcion a escoger:[1/2/3/4/5]"<<endl;
+    cout<<"\t\t\t-----------------------------------------"<<endl;
+    cout<<"\t\t\tIngresa tu Opcion: ";
+    cin>>choice; // Lee la opción del usuario
 
     switch(choice)
     {
     case 1:
+        do
         {
-            datosEstudiante();
-        }
+            insertar();
+            cout<<"\n\t\t\t Agrega otra Sede(Y,N): ";
+            cin>>x; // Pregunta al usuario si quiere agregar otra Matricula
+        } while(x=='y'||x=='Y'); // Repite el proceso si el usuario responde 'y' o 'Y'
 		break;
 	case 2:
+	    {
+	        //desplegar();
+	    }
 		break;
+    case 3:
+        {
+            //modificar();
+        }
+        break;
+    case 4:
+        {
+            //borrar();
+        }
+        break;
+    case 5:
+        {
+            break;
+        }
 	default:
 		cout<<"\n\t\t\t Opcion invalida...Por favor prueba otra vez..";
 		cin.get();
 	}
-  }while(choice!= 2);
+  }while(choice!= 5);
 }
 string matricula::generarNumeroCarnet() {
     srand(time(0)); // Semilla para números aleatorios
@@ -93,7 +125,114 @@ string matricula::generarNumeroBoleta() {
 //string matricula::datosEstudiante(string facultad, string nombre, string apellido1, string apellido2, string fechaNacimiento, string direccion, string telefono, string DPI, string correo, string fecha;)
 //string facultad, nombre, apellido1, apellido2, fechaNacimiento, direccion, fecha, telefono, DPI, correo, numeroBoleta;
 //double monto;
-void matricula::datosEstudiante(){
+void matricula::insertar(){
+    system("cls");
+    Matricula matricula;
+    ofstream file("Matricula.dat", ios::binary | ios::app);
+    // Verifica si el archivo se abrió correctamente
+    if (!file) {
+        cerr << "No se pudo abrir el archivo." << endl; // Muestra un mensaje de error si no se puede abrir el archivo
+        return; // Retorna
+    }
+      string facultad, plan, jornada, nombre, apellido1, apellido2, fechaNacimiento, direccion, telefono, DPI, correo, fecha, numeroBoleta;
+      //Información que aún no se ha agregado
+      /*cout<<"\n-----------------------------------------------------------------------------------------------------------------";
+      cout<<"\n-------------------------------------------------Creacion Matricula----------------------------------------------"<<endl;
+      // Seleccionar Facultad
+      cout << "Seleccione la Facultad (Ej. Ingenieria en sistemas, Ingenieria civil, etc.): ";
+      cin.ignore(); // Limpiar el buffer de entrada
+      //getline(cin, facultad);
+      cin.getline(matricula.facultad, sizeof(matricula.facultad));
+      cout << "Seleccione el plan(Diario, Fin de semana): ";
+      getline(cin, plan);
+      cout << "Seleccione la Jornada(Matutino, Vespertina): ";
+      getline(cin, jornada);*/
+      cout<<"\n-----------------------------------------------------------------------------------------------------------------";
+      cout<<"\n-------------------------------------------Registro de Nuevos estudiante-----------------------------------------"<<endl;
+      // Solicitar los datos del estudiante
+      cout << "\n\tIngrese el numero de carnet: ";
+      //getline(cin, carnet);
+      cin.ignore();
+      cin.getline(matricula.carnet, sizeof(matricula.carnet));
+      ifstream archivo("Alumnos.dat", ios::binary);
+      if (!archivo.is_open()) {
+        cout << "Error: No se pudo abrir el archivo" << endl;
+        return;
+        }
+      else
+        {
+        Alumno alumno;
+        while (archivo.read(reinterpret_cast<char*>(&alumno), sizeof(Alumno))) {
+                 cout << "                        Mostrando -> ID del estudiante: " << alumno.id << endl;
+        }
+        cout<< alumno.id << endl;
+        cout<< matricula.carnet<<endl;
+        if (alumno.id != matricula.carnet)
+        {
+            cout << "Los datos del i no coinciden." << endl;
+        return;
+        }
+        else
+        {
+            // Si los datos coinciden, continuar con el proceso de pago
+        cout << "Los datos coinciden." << endl;
+        }
+    }
+      cout << "\tFecha de ingreso de informacion(dd/mm/aaaa): ";
+      getline(cin, fecha);
+      cout << "\n\t\t--------- Monto de la matricula: Q10.00 ---------"<<"\n"<<endl;
+      system("pause");
+      pagarEnLinea();
+
+      // Generar número de carnet y correo institucional
+      string numeroCarnet = generarNumeroCarnet();
+      string correoInstitucional = generarCorreoInstitucional(nombre, apellido1, apellido2);
+      cout<<"\n\n-----------------------------------------------------------------------------------------------------------------"<<endl;
+      cout << "\t\t\t¡Su pago de matricula ha sido procesado con exito!" << endl;
+      cout << "\t\t\tNumero de carnet: " << numeroCarnet << endl;
+      cout << "\t\t\tSu Correo institucional es: " << correoInstitucional << endl;
+      //ofstream file("Matricula.dat", ios::binary | ios::app);
+      //file<<"-------------------------------------------DATOS DEL ESTUDIANTE-------------------------------------------"<<"\n";
+      file.write(reinterpret_cast<char*>(&facultad), sizeof(facultad));
+      file.write(reinterpret_cast<char*>(&plan), sizeof(plan));
+      file.write(reinterpret_cast<char*>(&jornada), sizeof(jornada));
+      file.write(reinterpret_cast<char*>(&nombre), sizeof(nombre));
+      file.write(reinterpret_cast<char*>(&apellido1), sizeof(apellido1));
+      file.write(reinterpret_cast<char*>(&apellido2), sizeof(apellido2));
+      file.write(reinterpret_cast<char*>(&fechaNacimiento), sizeof(fechaNacimiento));
+      file.write(reinterpret_cast<char*>(&direccion), sizeof(direccion));
+      file.write(reinterpret_cast<char*>(&telefono), sizeof(telefono));
+      file.write(reinterpret_cast<char*>(&DPI), sizeof(DPI));
+      file.write(reinterpret_cast<char*>(&correo), sizeof(correo));
+      file.write(reinterpret_cast<char*>(&fecha), sizeof(fecha));
+      file.write(reinterpret_cast<char*>(&numeroCarnet), sizeof(numeroCarnet));
+      file.write(reinterpret_cast<char*>(&correoInstitucional), sizeof(correoInstitucional));
+      file.close();
+      system("pause");
+      system("cls");
+      //fstream file2;
+      // Generar el número de boleta
+      numeroBoleta = generarNumeroBoleta();
+      // Mostrar el comprobante de pago
+      cout<<"\n----------------------------------------------------------------------------------------------------------";
+      cout<<"\n-------------------------------------------Comprobante de pago -------------------------------------------"<<endl;
+      cout << "\t\t\tNumero de boleta: " << numeroBoleta << endl;
+      cout << "\t\t\tNumero de carnet: " << numeroCarnet << endl;
+      cout << "\t\t\tNombre completo: " << nombre << " " << apellido1 << " " << apellido2 << endl;
+      cout << "\t\t\tFecha de pago: " << fecha << endl;
+      cout << "\t\t\tMonto de la matricula: Q10.00" <<"\n"<< endl;
+      ofstream file2("Boleta_Pago.dat", ios::binary | ios::app);
+      file2.write(reinterpret_cast<char*>(&numeroBoleta), sizeof(numeroBoleta));
+      file2.write(reinterpret_cast<char*>(&numeroCarnet), sizeof(numeroCarnet));
+      file2.write(reinterpret_cast<char*>(&nombre), sizeof(nombre));
+      file2.write(reinterpret_cast<char*>(&apellido1), sizeof(apellido1));
+      file2.write(reinterpret_cast<char*>(&apellido2), sizeof(apellido2));
+      file2.write(reinterpret_cast<char*>(&fecha), sizeof(fecha));
+      file2.close();
+      system("pause");
+}
+/*
+void matricula::insertar(){
     system("cls");
     //fstream file;
       string facultad, plan, jornada, nombre, apellido1, apellido2, fechaNacimiento, direccion, telefono, DPI, correo, fecha, numeroBoleta;
@@ -156,10 +295,6 @@ void matricula::datosEstudiante(){
       file.write(reinterpret_cast<char*>(&fecha), sizeof(fecha));
       file.write(reinterpret_cast<char*>(&numeroCarnet), sizeof(numeroCarnet));
       file.write(reinterpret_cast<char*>(&correoInstitucional), sizeof(correoInstitucional));
-      //file<<"facultad: "<<facultad <<"\n"<<"Plan: "<<plan <<"\n"<<"Jornada: "<<jornada <<"\n"<<"Nombre completo: "<<nombre<< " " << apellido1 << " " << apellido2<< "\n"<<"Fecha de nacimiento: "<< fechaNacimiento<< "\n";
-      //file<<"Direccion de Residencia: "<<direccion<<"\n"<<"Telefono celular: "<<telefono<<"\n"<<"DPI(CUI): "<<DPI<<"\n"<<"Correo electronico: "<<correo<<"\n"<<"Fecha de ingreso de informacion: "<<fecha<< "\n";
-      //file<<"Numero de carnet: " << numeroCarnet <<"\n" <<"Correo Institucional: "<<correoInstitucional<<"\n";
-      //file<<"----------------------------------------------------------------------------------------------------------"<<"\n";
       file.close();
       system("pause");
       system("cls");
@@ -183,174 +318,73 @@ void matricula::datosEstudiante(){
       file2.write(reinterpret_cast<char*>(&apellido2), sizeof(apellido2));
       file2.write(reinterpret_cast<char*>(&fecha), sizeof(fecha));
       file2.close();
-
-      //file2<<"-------------------------------------------COMPROBANTE DE PAGO-------------------------------------------"<<"\n";
-      //file2<<"Numero de boleta: "<<numeroBoleta<<"\n"<<"Numero de carnet: "<<numeroCarnet<<"\n"<<"Nombre completo: "<<nombre<< " " << apellido1 << " " << apellido2<<"\n";
-      //file2<<"Fecha de pago: "<<fecha<<"\n"<<"Monto de la matricula: Q10.00"<< "\n";
-      //file2<<"---------------------------------------------------------------------------------------------------------"<<"\n";
-      //file2.close();
       system("pause");
-}
-/*
-void matricula::pagarEnLinea() {
-    system("cls");
-    cout<<"\n----------------------------------------------------------------------------------------------------------";
-    cout<<"\n-------------------------------------------DATOS DE LA TARJETA--------------------------------------------"<<endl;
-    string numeroTarjeta, fechaExpiracion, codigoSeguridad, nombreTitular;
-    cout << "\n\t\t\t Numero de tarjeta: ";
-    cin.ignore();
-    getline(cin, numeroTarjeta);
-    cout << "\t\t\t Fecha de expiracion (MM/AA): ";
-    getline(cin, fechaExpiracion);
-    cout << "\t\t\t Codigo de seguridad: ";
-    getline(cin, codigoSeguridad);
-    cout << "\t\t\t Nombre del titular: ";
-    getline(cin, nombreTitular);
-    cout<<"\n----------------------------------------------------------------------------------------------------------"<<endl;
-    // You can save this information to a file or process it as needed for online payment
-    // For example:
-    ofstream file("PagoEnLinea.dat", ios::binary | ios::app);
-    file.write(reinterpret_cast<char*>(&numeroTarjeta), sizeof(numeroTarjeta));
-    file.write(reinterpret_cast<char*>(&fechaExpiracion), sizeof(fechaExpiracion));
-    file.write(reinterpret_cast<char*>(&codigoSeguridad), sizeof(codigoSeguridad));
-    file.write(reinterpret_cast<char*>(&nombreTitular), sizeof(nombreTitular));
-    file.close();
-
-    system("pause");
 }*/
 
 void matricula::pagarEnLinea() {
     system("cls");
+    cout<<"\n----------------------------------------------------------------------------------------------------------";
+    cout<<"\n-------------------------------------------DATOS DE LA TARJETA--------------------------------------------"<<endl;
     cout << "Ingrese los datos de su tarjeta de crédito para realizar el pago en línea:" << endl;
-    string numeroTarjeta, fechaExpiracion, codigoSeguridad;
+    string numTarjeta, fExpiracion, codSeguridad;
     cout << "Número de tarjeta: ";
-    cin.ignore();
-    getline(cin, numeroTarjeta);
+    //cin.ignore();
+    getline(cin, numTarjeta);
     cout << "Fecha de expiración (MM/AA): ";
-    getline(cin, fechaExpiracion);
+    getline(cin, fExpiracion);
     cout << "Código de seguridad: ";
-    getline(cin, codigoSeguridad);
+    getline(cin, codSeguridad);
 
-    // Verificar el saldo en la tarjeta
-    crearTarjeta();
-    double saldoDisponible = obtenerSaldoTarjeta();
-    if (saldoDisponible >= 10.00) {
-        cout << "\n¡Pago realizado en línea con éxito!" << endl;
-        cout << "Monto pagado: Q10.00" << endl;
-        cout << "Saldo disponible en la tarjeta: Q" << saldoDisponible - 10.00 << endl;
-        // Actualizar el saldo en el archivo después del pago
-        actualizarSaldoTarjeta(saldoDisponible - 10.00);
-    } else {
-        cout << "\n¡No hay fondos suficientes en la tarjeta para realizar el pago!" << endl;
-        cout << "Saldo disponible en la tarjeta: Q" << saldoDisponible << endl;
-    }
-
-    system("pause");
-}
-
-void matricula::crearTarjeta() {
-    system("cls");
-    ofstream outFile("tarjeta.txt");
-    if (!outFile.is_open()) {
-        cout << "Error al crear el archivo de tarjeta." << endl;
+    ifstream archivo("tarjeta.txt");
+    if (!archivo.is_open()) {
+        cout << "Error: No se pudo abrir el archivo tarjeta.txt." << endl;
         return;
     }
-
-    // Generar los datos de la tarjeta
-    string numeroTarjeta, fechaExpiracion, codigoSeguridad;
-    numeroTarjeta = generarNumeroTarjeta();
-    fechaExpiracion = generarFechaExpiracion();
-    codigoSeguridad = generarCodigoSeguridad();
-
-    // Escribir los datos en el archivo
-
-    outFile << "Número de tarjeta: " << numeroTarjeta << endl;
-    outFile << "Fecha de expiración: " << fechaExpiracion << endl;
-    outFile << "Código de seguridad: " << codigoSeguridad << endl;
-    outFile << "Saldo disponible: Q2000.00" << endl;
-
-    outFile.close();
-
-    cout << "Tarjeta creada exitosamente." << endl;
-    system("pause");
-}
-
-string matricula::generarNumeroTarjeta() {
-    // Generar un número de tarjeta aleatorio de 16 dígitos
-    string numeroTarjeta = "4"; // El prefijo "4" es común para tarjetas de crédito Visa
-    for (int i = 1; i <= 15; ++i) {
-        numeroTarjeta += to_string(rand() % 10); // Añadir dígitos aleatorios
-    }
-    return numeroTarjeta;
-}
-
-string matricula::generarFechaExpiracion() {
-    // Generar una fecha de expiración aleatoria (MM/AA)
-    int mes = 1 + rand() % 12; // Mes entre 1 y 12
-    int anio = 21 + rand() % 10; // Año entre 2021 y 2030
-    return to_string(mes) + "/" + to_string(anio);
-}
-
-string matricula::generarCodigoSeguridad() {
-    // Generar un código de seguridad aleatorio de 3 dígitos
-    string codigoSeguridad = "";
-    for (int i = 0; i < 3; ++i) {
-        codigoSeguridad += to_string(rand() % 10); // Añadir dígitos aleatorios
-    }
-    return codigoSeguridad;
-}
-
-double matricula::obtenerSaldoTarjeta() {
-    ifstream inFile("tarjeta.txt");
-    if (!inFile.is_open()) {
-        cout << "Error al abrir el archivo de tarjeta." << endl;
-        return 0.0;
-    }
-
-    string saldoStr;
-    while (getline(inFile, saldoStr)) {
-        size_t pos = saldoStr.find("Saldo disponible: Q");
-        if (pos != string::npos) {
-            double saldo = stod(saldoStr.substr(pos + 21));
-            inFile.close();
-            return saldo;
+    else
+    {
+        string numeroTarjeta, fechaExpiracion, codigoSeguridad;
+        int saldo;
+        // Leer el número de tarjeta
+        getline(archivo, numeroTarjeta);
+        // Leer la fecha de expiración
+        getline(archivo, fechaExpiracion);
+        // Leer el código de seguridad
+        getline(archivo, codigoSeguridad);
+        // Leer el saldo disponible
+        string saldoStr;
+        getline(archivo, saldoStr);
+        saldo = stoi(saldoStr);
+        if (numTarjeta != numeroTarjeta || fExpiracion != fechaExpiracion || codSeguridad != codigoSeguridad)
+        {
+            cout << "Los datos de la tarjeta no coinciden." << endl;
+        return;
         }
-    }
+        // Si los datos coinciden, continuar con el proceso de pago
+        cout << "Los datos de la tarjeta coinciden." << endl;
 
-    inFile.close();
-
-    cout << "Error al obtener el saldo de la tarjeta." << endl;
-    return 0.0;
-}
-
-void matricula::actualizarSaldoTarjeta(double nuevoSaldo) {
-    ifstream inFile("tarjeta.txt");
-    if (!inFile.is_open()) {
-        cout << "Error al abrir el archivo de tarjeta." << endl;
-        return;
-    }
-
-    ofstream outFile("temp.txt");
-    if (!outFile.is_open()) {
-        cout << "Error al crear el archivo temporal." << endl;
-        return;
-    }
-
-    string line;
-    while (getline(inFile, line)) {
-        size_t pos = line.find("Saldo disponible: Q");
-        if (pos != string::npos) {
-            outFile << "Saldo disponible: Q" << nuevoSaldo << endl;
-        } else {
-            outFile << line << endl;
+        // Verificar el saldo en la tarjeta
+        if (saldo >= 10) { // Si hay suficiente saldo para el pago
+            cout << "\n¡Pago realizado en línea con éxito!" << endl;
+            cout << "Monto pagado: Q10.00" << endl;
+            cout << "Saldo disponible en la tarjeta: Q" << saldo - 10 << endl;
+            archivo.close(); // Cerrar el archivo antes de abrirlo en modo de escritura
+            // Actualizar el saldo en el archivo después del pago
+            ofstream archivoSalida("tarjeta.txt"); // Abrir el archivo en modo de escritura
+            if (!archivoSalida.is_open()) {
+                cout << "Error: No se pudo abrir el archivo tarjeta.txt para escribir." << endl;
+            return;
+            }
+            // Escribir los datos actualizados en el archivo
+            archivoSalida << numeroTarjeta << endl;
+            archivoSalida << fechaExpiracion << endl;
+            archivoSalida << codigoSeguridad << endl;
+            archivoSalida << saldo - 10 << endl; // Actualizar el saldo restando 10
+            archivoSalida.close(); // Cerrar el archivo después de escribir
+            }
+            else { // Si no hay suficiente saldo para el pago
+                cout << "\n¡No hay fondos suficientes en la tarjeta para realizar el pago!" << endl;
+                cout << "Saldo disponible en la tarjeta: Q" << saldo << endl;
+            }
+                system("pause");
         }
-    }
-
-    inFile.close();
-    outFile.close();
-
-    remove("tarjeta.txt");
-    rename("temp.txt", "tarjeta.txt");
-
-    cout << "Saldo de la tarjeta actualizado exitosamente." << endl;
 }
