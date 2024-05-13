@@ -7,6 +7,7 @@
 #include<iomanip> // Incluye la biblioteca para manipulación de la salida
 #include <sstream> // Incluye la biblioteca para operaciones de flujo de cadena
 #include <cstring> // Incluye la biblioteca para operaciones de cadena
+#include"Bitacora.h"
 
 using namespace std; // Usa el espacio de nombres estándar
 
@@ -16,6 +17,7 @@ struct Sede {
     char nombre[50];
     char telefono[20];
 };
+
 
 // Definición de las funciones miembro de la clase Sedes
 void Sedes::menu()
@@ -30,7 +32,7 @@ void Sedes::menu()
 
         // Imprime el encabezado del menú
         cout<<"\t\t\t-----------------------------------------"<<endl;
-        cout<<"\t\t\t|   SISTEMA DE GESTION UMG - SEDES      |"<<endl;
+        cout<<"\t\t\t|   SISTEMA DE GESTION SEDES -  6100  |"<<endl;
         cout<<"\t\t\t-----------------------------------------"<<endl;
         cout<<"\t\t\t 1. Ingreso Sedes"<<endl;
         cout<<"\t\t\t 2. Despliegue Sedes"<<endl;
@@ -94,10 +96,13 @@ void Sedes::insertar() {
     cin.getline(sede.nombre, sizeof(sede.nombre));
     cout << "\t\t\tIngrese Telefono de Sede : ";
     cin.getline(sede.telefono, sizeof(sede.telefono));
-
     // Escribe los datos de la sede en el archivo
     file.write(reinterpret_cast<const char*>(&sede), sizeof(Sede));
     file.close(); // Cierra el archivo
+    string codigoPrograma="6100";
+    string user;
+    Bitacora Auditoria;
+    Auditoria.ingresoBitacora(user,codigoPrograma,"INS");
 }
 
 // Función para mostrar todas las sedes
@@ -131,6 +136,10 @@ void Sedes::desplegar() {
     file.close(); // Cierra el archivo
     cin.ignore(); // Limpia el buffer de entrada
     system("pause"); // Pausa el sistema para que el usuario pueda ver la información
+    string codigoPrograma="6100";
+    string user;
+    Bitacora Auditoria;
+    Auditoria.ingresoBitacora(user,codigoPrograma,"CON");
 }
 
 // Función para modificar los detalles de una sede
@@ -190,6 +199,10 @@ void Sedes::modificar() {
     rename("temporal.dat", "Sedes.dat"); // Renombra el archivo temporal como "Sedes.dat"
     cin.ignore(); // Limpia el buffer de entrada
     system("pause"); // Pausa el sistema para que el usuario pueda ver el mensaje
+    string codigoPrograma="6100";
+    string user;
+    Bitacora Auditoria;
+    Auditoria.ingresoBitacora(user,codigoPrograma,"ACT");
 }
 
 // Función para borrar una sede
@@ -242,4 +255,8 @@ void Sedes::borrar() {
 
     cin.ignore(); // Limpia el buffer de entrada
     system("pause"); // Pausa el sistema para que el usuario pueda ver el mensaje
+    string codigoPrograma="6100";
+    string user;
+    Bitacora Auditoria;
+    Auditoria.ingresoBitacora(user,codigoPrograma,"DEL");
 }
